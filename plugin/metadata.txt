@@ -1,0 +1,30 @@
+[general]
+name=GSQIS Plugin
+qgisMinimumVersion=3.40
+description=A QGIS plugin for geospatial analysis
+version=0.1.0
+author=Your Name
+email=your.email@example.com
+
+about=This is a QGIS plugin developed for geospatial analysis tasks.
+    It provides custom tools and processing algorithms for working with
+    spatial data in QGIS 3.40+.
+
+tracker=https://github.com/LexonicCode/GSQIS/issues
+repository=https://github.com/LexonicCode/GSQIS
+homepage=https://github.com/LexonicCode/GSQIS
+
+# Tags are comma separated with spaces allowed
+tags=python,analysis,gis
+
+category=Analysis
+icon=resources/icon.png
+experimental=True
+deprecated=False
+
+# Plugin dependencies (comma separated)
+# plugin_dependencies=
+
+changelog=0.1.0 - Initial development version
+    - Basic plugin structure
+    - Development environment setup

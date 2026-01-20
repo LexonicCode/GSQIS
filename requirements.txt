@@ -1,0 +1,13 @@
+# Python dependencies for QGIS plugin development
+
+# Testing
+pytest>=7.0.0
+pytest-cov>=4.0.0
+pytest-qgis>=2.0.0
+
+# Code quality
+flake8>=6.0.0
+black>=23.0.0
+
+# Note: QGIS and PyQt5 should be installed via QGIS installation
+# These are typically not installed via pip for plugin development
