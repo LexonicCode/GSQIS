@@ -2,20 +2,21 @@
 name=GSQIS Plugin
 qgisMinimumVersion=3.40
 description=A QGIS plugin for geospatial analysis
-version=0.1.0
+version=0.2.0
 author=Your Name
 email=your.email@example.com
 
-about=This is a QGIS plugin developed for geospatial analysis tasks.
-    It provides custom tools and processing algorithms for working with
-    spatial data in QGIS 3.40+.
+about=GSQIS is a QGIS plugin for geospatial analysis tasks.
+    It provides tools to inspect, summarize, and analyze spatial data
+    in QGIS 3.40+. Features include layer statistics with per-field
+    numeric and categorical summaries, and text report export.
 
 tracker=https://github.com/LexonicCode/GSQIS/issues
 repository=https://github.com/LexonicCode/GSQIS
 homepage=https://github.com/LexonicCode/GSQIS
 
 # Tags are comma separated with spaces allowed
-tags=python,analysis,gis
+tags=python,analysis,gis,statistics,vector
 
 category=Analysis
 icon=resources/icon.png
@@ -25,6 +26,12 @@ deprecated=False
 # Plugin dependencies (comma separated)
 # plugin_dependencies=
 
-changelog=0.1.0 - Initial development version
+changelog=0.2.0 - Layer Statistics feature
+    - Layer Statistics dialog with overview, field stats table, and text report
+    - Numeric field statistics: count, min, max, mean, median, sum, std dev
+    - Categorical field statistics: unique count, top values
+    - Export statistics report to text file
+    - Modular core/gui architecture
+    0.1.0 - Initial development version
     - Basic plugin structure
     - Development environment setup
