@@ -46,6 +46,9 @@ class GSQISPlugin:
         self.actions = []
         self.menu = self.tr('&GSQIS Plugin')
 
+        # Dialog references (lazy-loaded)
+        self._layer_stats_dialog = None
+
         # Log plugin initialization
         QgsMessageLog.logMessage(
             'GSQIS Plugin initialized',
@@ -119,10 +122,10 @@ class GSQISPlugin:
 
         self.add_action(
             icon_path,
-            text=self.tr('GSQIS Plugin'),
-            callback=self.run,
+            text=self.tr('Layer Statistics'),
+            callback=self.run_layer_stats,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr('Run GSQIS Plugin')
+            status_tip=self.tr('View statistics for the active vector layer')
         )
 
         QgsMessageLog.logMessage(
@@ -137,59 +140,40 @@ class GSQISPlugin:
             self.iface.removePluginMenu(self.menu, action)
             self.iface.removeToolBarIcon(action)
 
+        # Clean up dialog references
+        if self._layer_stats_dialog is not None:
+            self._layer_stats_dialog.close()
+            self._layer_stats_dialog = None
+
         QgsMessageLog.logMessage(
             'GSQIS Plugin unloaded',
             'GSQIS',
             Qgis.Info
         )
 
-    def run(self):
-        """Run method that performs all the real work."""
+    def run_layer_stats(self):
+        """Open the Layer Statistics dialog."""
         try:
-            # Log plugin execution
-            QgsMessageLog.logMessage(
-                'GSQIS Plugin executed',
-                'GSQIS',
-                Qgis.Info
-            )
+            from .gui.layer_stats_dialog import LayerStatsDialog
 
-            # Show message to user
-            self.iface.messageBar().pushMessage(
-                "GSQIS",
-                "Plugin executed successfully!",
-                level=Qgis.Success,
-                duration=3
-            )
+            if self._layer_stats_dialog is None:
+                self._layer_stats_dialog = LayerStatsDialog(
+                    self.iface, parent=self.iface.mainWindow()
+                )
 
-            # Your plugin logic goes here
-            # Example: Get active layer
-            active_layer = self.iface.activeLayer()
-            if active_layer:
-                QgsMessageLog.logMessage(
-                    f'Active layer: {active_layer.name()}',
-                    'GSQIS',
-                    Qgis.Info
-                )
-            else:
-                self.iface.messageBar().pushMessage(
-                    "GSQIS",
-                    "No active layer selected",
-                    level=Qgis.Warning,
-                    duration=3
-                )
+            self._layer_stats_dialog.show()
+            self._layer_stats_dialog.raise_()
+            self._layer_stats_dialog.activateWindow()
 
         except Exception as e:
-            # Log error
             QgsMessageLog.logMessage(
-                f'Error in GSQIS Plugin: {str(e)}',
+                f'Error opening Layer Statistics: {str(e)}',
                 'GSQIS',
                 Qgis.Critical
             )
-
-            # Show error to user
             self.iface.messageBar().pushMessage(
                 "Error",
-                f"Plugin execution failed: {str(e)}",
+                f"Failed to open Layer Statistics: {str(e)}",
                 level=Qgis.Critical,
                 duration=5
             )
